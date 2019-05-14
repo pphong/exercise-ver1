@@ -1,0 +1,14 @@
+{
+    "autoload": {
+        "moto_sqli": [
+            "Public/model/"
+        ],
+        "moto_pdo": [
+            "Public/model/"
+        ]
+        
+    },
+    "require": {
+        "phpunit/phpunit": "^7.5"
+    }
+}
