@@ -10,61 +10,32 @@ $data_pdo = $object_pdo->getDataMotos();
 
 ?>
 
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <head>
+        <title>  </title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+        <link href="css/" rel="stylesheet" type="text/css"/>
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    </head>
 
-    <title>Hello, world!</title>
-    <style>
-        .item-moto {
-            border: 1px solid red;
-        }
-    </style>
-</head>
-<body>
-<h3>Mysqli</h3>
-<div class="container">
-    <div class="row">
-        <?php foreach ($data_sqli as $key => $value): ?>
+    <body>
+        <div class="container">
+            <div class="row">
 
-            <div class="col-md-3 item-moto">
-                <p>Biển số: <span><?php echo $value['moto_id']; ?></span> </p>
-                <p>Tên Xe: <span><?php echo $value['moto_name']; ?></span></p>
-                <p>Màu: <span><?php echo $value['moto_color']; ?></span></p>
-                <p>Cân nặng: <span><?php echo $value['moto_weight']; ?></span> kg</p>
-                <p>Du tích: <span><?php echo $value['moto_size']; ?></span>ml</p>
             </div>
-        <?php endforeach ?>
-    </div>
-</div>
-<h3>PDO</h3>
-<div class="container">
-    <div class="row">
-        <?php foreach ($data_pdo as $key => $value): ?>
 
-            <div class="col-md-3 item-moto">
-                <p>Biển số: <span><?php echo $value['moto_id']; ?></span> </p>
-                <p>Tên Xe: <span><?php echo $value['moto_name']; ?></span></p>
-                <p>Màu: <span><?php echo $value['moto_color']; ?></span></p>
-                <p>Cân nặng: <span><?php echo $value['moto_weight']; ?></span> kg</p>
-                <p>Du tích: <span><?php echo $value['moto_size']; ?></span>ml</p>
+            <div class="row">
             </div>
-        <?php endforeach ?>
-    </div>
-</div>
+        </div>
+    </body>
 
+    <footer>
 
-
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-</body>
+    </footer>
 </html>
