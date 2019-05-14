@@ -2,11 +2,6 @@
 include 'Public/model/moto_sqli.php';
 $db = new moto_sqli();
 $mysqli_data = $db->getDataMotos();
-$db->postEdit(['moto_id' => 1,
-               'moto_name' => 2,
-               'moto_color' => 'red',
-               'moto_weight' => 3,
-               'moto_size' => 4]);
 include 'Public/model/moto_pdo.php';
 $db_dpo = new moto_pdo();
 $dpo_data = $db_dpo->getDataMotos();
