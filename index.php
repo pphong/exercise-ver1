@@ -1,10 +1,12 @@
 <?php
 include 'Public/model/moto_sqli.php';
-$db = new moto_sqli();
-$mysqli_data = $db->getDataMotos();
 include 'Public/model/moto_pdo.php';
-$db_dpo = new moto_pdo();
-$dpo_data = $db_dpo->getDataMotos();
+
+$object_sqli = new moto_sqli();
+$data_sqli = $object_sqli->getDataMotos();
+
+$object_pdo = new moto_pdo();
+$data_pdo = $object_pdo->getDataMotos();
 
 ?>
 
@@ -29,7 +31,7 @@ $dpo_data = $db_dpo->getDataMotos();
 <h3>Mysqli</h3>
 <div class="container">
     <div class="row">
-        <?php foreach ($mysqli_data as $key => $value): ?>
+        <?php foreach ($data_sqli as $key => $value): ?>
 
             <div class="col-md-3 item-moto">
                 <p>Biển số: <span><?php echo $value['moto_id']; ?></span> </p>
@@ -44,7 +46,7 @@ $dpo_data = $db_dpo->getDataMotos();
 <h3>PDO</h3>
 <div class="container">
     <div class="row">
-        <?php foreach ($dpo_data as $key => $value): ?>
+        <?php foreach ($data_pdo as $key => $value): ?>
 
             <div class="col-md-3 item-moto">
                 <p>Biển số: <span><?php echo $value['moto_id']; ?></span> </p>
