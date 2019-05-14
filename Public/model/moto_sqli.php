@@ -14,9 +14,15 @@ class moto_sqli extends mysqli_db{
     private $filter = [ 'moto_name', 'moto_color', 'moto_weight', 'moto_size'];
     private $primeryKey = 'moto_id';
     
-    public function getDataMotos()
+    public function getDataMotos($id = NULL)
     {
-        $sql = 'SELECT * FROM `motos`';
+        if ($id == NULL){
+            $sql = 'SELECT * FROM `motos`';
+        }
+        else{
+            $sql = 'SELECT * FROM `motos` WHERE `'.$this->primeryKey.'` = '.$id;
+        }
+        
         $data = $this->getData($sql);
         return $data;
     }
