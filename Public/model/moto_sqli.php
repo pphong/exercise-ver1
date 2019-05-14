@@ -34,12 +34,43 @@ class moto_sqli extends mysqli_db{
         
         $where = '`'.$this->primeryKey.'` = '.$id;
         
-        $query = "UPDATE "
+        $sql = "UPDATE "
                 . '`'.$this->table.'` '
                 . "SET "
                 . $set
                 . "WHERE 1";
         
+        $this->query($sql);
+    }
+    
+    public function postAdd($data){
+        $value = '';
+        
+        foreach ($this->filter as $title){
+            if (gettype($data[$title]) == 'integer')
+                $value = $value.$data[$title].',';
+            else
+                $value = $value.'"'.$data[$title].'",';
+        }
+        
+        $value = substr($value, 0, strlen($value)-1);
+        
+        $col = '';
+        foreach ($this->filter as $title)
+            $col = $col.'`'.$title.'`,';
+        $col = substr($col, 0, strlen($col)-1);
+        
+        $sql = "INSERT INTO "
+                . "`"
+                . $this->table
+                . "`("
+                . $col
+                . ") "
+                . "VALUES ("
+                . $value
+                . ")";
+        
+        $this->query($sql);
     }
 }
 
