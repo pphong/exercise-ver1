@@ -72,5 +72,19 @@ class moto_sqli extends mysqli_db{
         
         $this->query($sql);
     }
+    
+    public function postDelete($data){
+        $id = $data[$this->filter[0]];
+        $sql = "DELETE FROM "
+                . "`"
+                . $this->table
+                . "` "
+                . "WHERE `"
+                . $this->primeryKey
+                . "` = "
+                . $id;
+        
+        $this->query($sql);
+    }
 }
 
