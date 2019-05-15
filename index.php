@@ -55,6 +55,12 @@ if ($_2col) {
 }
 ?>
 
+<?php
+$t = time();
+$_token = md5($t);
+session_start();
+$_SESSION['_token'] = $_token;
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -72,34 +78,48 @@ if ($_2col) {
     <body>
         <div class="container">
             <h4 class="">Get database with mysqli</h4>
-            <div class="alert alert-info"></div>
-<?php do { ?>
+            <div class="alert alert-primary" style="padding: auto 5px">
+                <h5 class="" style="display: inline-block">Danh sách moto </h5>
+                <a class="btn btn-outline-info" href="CU_moto.php" rel="" style="position: relative;left: 70%;" >Add more moto</a>
+            </div>
+            <?php do { ?>
                 <div class="row">
-    <?php for ($i = 0; $i < $cols; $i++) : ?>
-        <?php $moto = current($data) ?>
-        <?php if (current($data) !=NULL ) :?>
-                        <div class="<?php echo $class ?>">
-                            <div class="alert alert-info" style="display: inline-block">
-                                Biển số : <?php echo $moto['moto_id'] ?>
-                                Tên xe : <?php echo $moto['moto_name'] ?>
-                                Màu sắc : <?php echo $moto['moto_color'] ?>
-                                Cân nặng : <?php echo $moto['moto_weight'] ?>
-                                Kích thước : <?php echo $moto['moto_size'] ?>
+                    <?php for ($i = 0; $i < $cols; $i++) : ?>
+                        <?php $moto = current($data) ?>
+                        <?php if (current($data) != NULL) : ?>
+                            <div class="<?php echo $class ?>">
+                                <div class="alert alert-info" style="display: inline-block">
+                                    Biển số : <?php echo $moto['moto_id'] ?>
+                                    Tên xe : <?php echo $moto['moto_name'] ?>
+                                    Màu sắc : <?php echo $moto['moto_color'] ?>
+                                    Cân nặng : <?php echo $moto['moto_weight'] ?>
+                                    Kích thước : <?php echo $moto['moto_size'] ?>
+                                    </br>
+                                    <form action='CU_moto.php' method='get' style="display: inline-block">
+                                        <input type='hidden' name='moto_id' value="<?php echo $moto['moto_id'] ?>">
+                                        <input class="btn" type='submit' value='Edit'>
+                                    </form>
+                                    <form action='delete.php' method='post' style="display: inline-block">
+                                        <input type="hidden" name="_token" value="<?php echo $_token ?>">
+                                        <input type='hidden' name='moto_id' value="<?php echo $moto['moto_id'] ?>">
+                                        <input class="btn" type='submit' name='delete' value='Delete'>
+                                    </form>
+                                </div>
+
                             </div>
-                        </div>
-            <?php endif; ?>
-                    <?php next($data) ?>
-                <?php endfor; ?>
-                <?php prev($data) ?>
+                        <?php endif; ?>
+                        <?php next($data) ?>
+                    <?php endfor; ?>
+                    <?php prev($data) ?>
                 </div>
-<?php }while (next($data) != NULL) ?>
+            <?php }while (next($data) != NULL) ?>
 
 
-<?php
+            <?php
 // do{
 //                var_dump(current($data));
 //            }while(next($data) != NULL)
-?>
+            ?>
 
         </div>
     </body>

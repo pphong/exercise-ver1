@@ -60,25 +60,27 @@ elseif (@$_POST['submit'] == 'Edit') {
             <div class="row">
                 <div class="col-md-12">
                     <?php if (@$success) : ?>
-                    <div class="alert alert-success"><?php echo $success ?></div>
+                        <div class="alert alert-success"><?php echo $success ?></div>
                     <?php elseif (@$fail) : ?>
                         <div class="alert alert-danger"><?php echo $fail ?></div>
                     <?php endif; ?>
 
-                    <form action='#' method='post'>
+                    <form class="alert alert-info" action='#' method='post'>
                         <input type='hidden' name='moto_id'     placeholder="id"     value="<?php echo $moto_id ?>">
                         <input type='text'   name='moto_name'   placeholder="name"   value="<?php echo $data_sqli['moto_name'] ?>">
                         <input type='text'   name='moto_color'  placeholder="color"  value="<?php echo $data_sqli['moto_color'] ?>">
                         <input type='number' name='moto_weight' placeholder="weight" value="<?php echo $data_sqli['moto_weight'] ?>">
                         <input type='number' name='moto_size'   placeholder="size"   value="<?php echo $data_sqli['moto_size'] ?>">
 
-                        <input type='submit' name='submit' value="<?php if ($moto_id == NULL)
-                        echo 'Submit';
-                    else
-                        echo 'Edit';
-                    ?>">
+                        <input type='submit' name='submit' value="<?php
+                        if ($moto_id == NULL)
+                            echo 'Submit';
+                        else
+                            echo 'Edit';
+                        ?>">
                     </form>
                 </div>
+                <a href="index.php" rel="">Back to index</a>
             </div>
 
         </div>
