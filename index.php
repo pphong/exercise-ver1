@@ -1,10 +1,10 @@
 <?php
 include 'Public/model/moto_sqli.php';
 include 'Public/model/moto_pdo.php';
-
+if (session_status())
+    session_start();
 $db_sqli = true;
 if (@$_POST['set']){
-    session_start();
     $_SESSION['db_sqli'] = $_POST['db_sqli'];
     $db_sqli = $_SESSION['db_sqli'];
 }
@@ -64,8 +64,7 @@ if ($_2col) {
 <?php
 $t = time();
 $_token = md5($t);
-if (!session_status())
-    session_start();
+
 $_SESSION['_token'] = $_token;
 ?>
 <!DOCTYPE html>
@@ -126,16 +125,16 @@ $_SESSION['_token'] = $_token;
             
             <div class="row">
                 <div class="col-md-2 col-xs-2">
-                    <form action='#' method='post'>
+                    <form action='' method='post'>
                         <select name="db_sqli">
                             <option value="true" >sqli (default)</option>
-                            <option value="false" >pdo</option>
+                            <option value="" >pdo</option>
                         </select>
+                        <input type="text" disabled="" name="" value="<?php if (@$_SESSION['db_sqli']) {echo 'sqli'; } else {echo 'pdo';}?>">
                         <input type='submit' name='set' value='Set'>
                     </form>
                 </div>
             </div>
-            
         </div>
     </body>
 
