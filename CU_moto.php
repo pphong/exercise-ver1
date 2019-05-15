@@ -2,28 +2,40 @@
 include 'Public/model/moto_sqli.php';
 include 'Public/model/moto_pdo.php';
 
+$db_sqli = true;
+if (@$_POST['set']) {
+    session_start();
+    $_SESSION['db_sqli'] = $_POST['db_sqli'];
+    $db_sqli = $_SESSION['db_sqli'];
+}
+
 if (@$_GET['moto_id'])
     $moto_id = $_GET['moto_id'];
 else
     $moto_id = NULL;
-$object_sqli = new moto_sqli();
-$data_sqli = $object_sqli->getDataMotos($moto_id)[0];
 
-$object_pdo = new moto_pdo();
-$data_pdo = $object_pdo->getDataMotos();
+if ($db_sqli)
+    $object_db = new moto_sqli();
+else
+    $object_db = new moto_pdo();
+
+$data = NULL;
+
+if (@$object_db->getDataMotos($moto_id) && @$moto_id)
+    $data = $object_db->getDataMotos($moto_id)[0];
 ?>
 
 <?php
 if (@$_POST['submit'] == 'Submit') {
     $data = $_POST;
-    if ($object_sqli->postAdd($data))
+    if ($object_db->postAdd($data))
         $success = 'Thêm mới thành công';
     else
         $fail = 'Thêm mới thất bại';
 }
 elseif (@$_POST['submit'] == 'Edit') {
     $data = $_POST;
-    if ($object_sqli->postEdit($data))
+    if ($object_db->postEdit($data))
         $success = 'Thay đổi thành công';
     else
         $fail = 'Thay đổi thất bại';
@@ -67,10 +79,10 @@ elseif (@$_POST['submit'] == 'Edit') {
 
                     <form class="alert alert-info" action='#' method='post'>
                         <input type='hidden' name='moto_id'     placeholder="id"     value="<?php echo $moto_id ?>">
-                        <input type='text'   name='moto_name'   placeholder="name"   value="<?php echo $data_sqli['moto_name'] ?>">
-                        <input type='text'   name='moto_color'  placeholder="color"  value="<?php echo $data_sqli['moto_color'] ?>">
-                        <input type='number' name='moto_weight' placeholder="weight" value="<?php echo $data_sqli['moto_weight'] ?>">
-                        <input type='number' name='moto_size'   placeholder="size"   value="<?php echo $data_sqli['moto_size'] ?>">
+                        <input type='text'   name='moto_name'   placeholder="name"   value="<?php echo $data['moto_name'] ?>">
+                        <input type='text'   name='moto_color'  placeholder="color"  value="<?php echo $data['moto_color'] ?>">
+                        <input type='number' name='moto_weight' placeholder="weight" value="<?php echo $data['moto_weight'] ?>">
+                        <input type='number' name='moto_size'   placeholder="size"   value="<?php echo $data['moto_size'] ?>">
 
                         <input type='submit' name='submit' value="<?php
                         if ($moto_id == NULL)
