@@ -2,20 +2,26 @@
 include 'Public/model/moto_sqli.php';
 include 'Public/model/moto_pdo.php';
 
-$object_sqli = new moto_sqli();
-$data_sqli = $object_sqli->getDataMotos();
+$db_sqli = true;
+if (@$_POST['set']){
+    session_start();
+    $_SESSION['db_sqli'] = $_POST['db_sqli'];
+    $db_sqli = $_SESSION['db_sqli'];
+}
 
-$object_pdo = new moto_pdo();
-$data_pdo = $object_pdo->getDataMotos();
+if ($db_sqli)
+    $object_db = new moto_sqli();
+else
+    $object_db = new moto_pdo();
 
-$data = $data_sqli;
+$data = $object_db->getDataMotos();
 
 $_6col = false;
 $_4col = false;
 $_3col = false;
 $_2col = false;
 
-$col_count = count($data_sqli);
+$col_count = count($data);
 
 while (1) {
     if ($col_count % 6 == 0) {
@@ -58,7 +64,8 @@ if ($_2col) {
 <?php
 $t = time();
 $_token = md5($t);
-session_start();
+if (!session_status())
+    session_start();
 $_SESSION['_token'] = $_token;
 ?>
 <!DOCTYPE html>
@@ -77,50 +84,58 @@ $_SESSION['_token'] = $_token;
 
     <body>
         <div class="container">
-            <h4 class="">Get database with mysqli</h4>
-            <div class="alert alert-primary" style="padding: auto 5px">
-                <h5 class="" style="display: inline-block">Danh sách moto </h5>
-                <a class="btn btn-outline-info" href="CU_moto.php" rel="" style="position: relative;left: 70%;" >Add more moto</a>
-            </div>
-            <?php do { ?>
-                <div class="row">
-                    <?php for ($i = 0; $i < $cols; $i++) : ?>
-                        <?php $moto = current($data) ?>
-                        <?php if (current($data) != NULL) : ?>
-                            <div class="<?php echo $class ?>">
-                                <div class="alert alert-info" style="display: inline-block">
-                                    Biển số : <?php echo $moto['moto_id'] ?>
-                                    Tên xe : <?php echo $moto['moto_name'] ?>
-                                    Màu sắc : <?php echo $moto['moto_color'] ?>
-                                    Cân nặng : <?php echo $moto['moto_weight'] ?>
-                                    Kích thước : <?php echo $moto['moto_size'] ?>
-                                    </br>
-                                    <form action='CU_moto.php' method='get' style="display: inline-block">
-                                        <input type='hidden' name='moto_id' value="<?php echo $moto['moto_id'] ?>">
-                                        <input class="btn" type='submit' value='Edit'>
-                                    </form>
-                                    <form action='delete.php' method='post' style="display: inline-block">
-                                        <input type="hidden" name="_token" value="<?php echo $_token ?>">
-                                        <input type='hidden' name='moto_id' value="<?php echo $moto['moto_id'] ?>">
-                                        <input class="btn" type='submit' name='delete' value='Delete'>
-                                    </form>
-                                </div>
-
-                            </div>
-                        <?php endif; ?>
-                        <?php next($data) ?>
-                    <?php endfor; ?>
-                    <?php prev($data) ?>
+            <div class="">
+                <h4 class="">Get database with mysqli</h4>
+                <div class="alert alert-primary" style="padding: auto 5px">
+                    <h5 class="" style="display: inline-block">Danh sách moto </h5>
+                    <a class="btn btn-outline-info" href="CU_moto.php" rel="" style="position: relative;left: 70%;" >Add more moto</a>
                 </div>
-            <?php }while (next($data) != NULL) ?>
+                <?php do { ?>
+                    <div class="row">
+                        <?php for ($i = 0; $i < $cols; $i++) : ?>
+                            <?php $moto = current($data) ?>
+                            <?php if (current($data) != NULL) : ?>
+                                <div class="<?php echo $class ?>">
+                                    <div class="alert alert-info" style="display: inline-block">
+                                        Biển số : <?php echo $moto['moto_id'] ?>
+                                        Tên xe : <?php echo $moto['moto_name'] ?>
+                                        Màu sắc : <?php echo $moto['moto_color'] ?>
+                                        Cân nặng : <?php echo $moto['moto_weight'] ?>
+                                        Kích thước : <?php echo $moto['moto_size'] ?>
+                                        </br>
+                                        <form action='CU_moto.php' method='get' style="display: inline-block">
+                                            <input type='hidden' name='moto_id' value="<?php echo $moto['moto_id'] ?>">
+                                            <input class="btn" type='submit' value='Edit'>
+                                        </form>
+                                        <form action='delete.php' method='post' style="display: inline-block">
+                                            <input type="hidden" name="_token" value="<?php echo $_token ?>">
+                                            <input type='hidden' name='moto_id' value="<?php echo $moto['moto_id'] ?>">
+                                            <input class="btn" type='submit' name='delete' value='Delete'>
+                                        </form>
+                                    </div>
 
+                                </div>
+                            <?php endif; ?>
+                            <?php next($data) ?>
+                        <?php endfor; ?>
+                        <?php prev($data) ?>
+                    </div>
+                <?php }while (next($data) != NULL) ?>
 
-            <?php
-// do{
-//                var_dump(current($data));
-//            }while(next($data) != NULL)
-            ?>
-
+            </div>
+            
+            <div class="row">
+                <div class="col-md-2 col-xs-2">
+                    <form action='#' method='post'>
+                        <select name="db_sqli">
+                            <option value="true" >sqli (default)</option>
+                            <option value="false" >pdo</option>
+                        </select>
+                        <input type='submit' name='set' value='Set'>
+                    </form>
+                </div>
+            </div>
+            
         </div>
     </body>
 

@@ -11,7 +11,6 @@ class moto_sqli_test extends TestCase{
     
     public function testRead():void{
         $this->assertInstanceOf(
-            moto_sqli::class,
             moto_sqli::getDataMotos
         );
     }

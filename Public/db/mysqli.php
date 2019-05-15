@@ -12,6 +12,10 @@ Class mysqli_db {
             mysqli_set_charset(self::$connection, 'UTF8');
         }
     }
+    
+    public function __destruct() {
+        self::$connection = NULL;
+    }
 
     public function query($sql) {
         $data = mysqli_query(self::$connection, $sql);
