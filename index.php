@@ -8,6 +8,43 @@ $data_sqli = $object_sqli->getDataMotos();
 $object_pdo = new moto_pdo();
 $data_pdo = $object_pdo->getDataMotos();
 
+$data = $data_sqli;
+
+$_6col = false;
+$_4col = false;
+$_3col = false;
+$_2col = false;
+
+$col_count = count($data_sqli);
+
+while (1){
+if ($col_count % 6 == 0)
+{$_6col = true;break;}
+else
+if ($col_count % 4 == 0)
+{$_4col = true;break;}
+else
+if ($col_count % 3 == 0 )
+{$_3col = true;break;}
+else
+if ($col_count % 2 == 0)
+{$_2col = true;break;}
+else
+    $col_count--;
+}
+
+if ($_6col)
+{$cols = 6;$class = 'col-md-2 col-xs-2';}
+else
+if ($_4col)
+{$cols = 4;$class = 'col-md-3 col-xs-3';}
+else
+if ($_3col)
+{$cols = 3;$class = 'col-md-4 col-xs-4';}
+else
+if ($_2col)
+{$cols = 2;$class = 'col-md-6 col-xs-6';}
+
 ?>
 
 <!DOCTYPE html>
@@ -26,12 +63,33 @@ $data_pdo = $object_pdo->getDataMotos();
 
     <body>
         <div class="container">
+            <h4 class="">Get database with mysqli</h4>
+            <div class="alert alert-info"></div>
+            <?php do {?>
             <div class="row">
-
+                <?php for($i= 0; $i < $cols; $i++) :?>
+                        <?php $moto = current($data) ?>
+                    <div class="<?php echo $class ?>">
+                        <div class="alert alert-info" style="display: inline-block">
+                            Biển số : <?php echo $moto['moto_id'] ?>
+                            Tên xe : <?php echo $moto['moto_name'] ?>
+                            Màu sắc : <?php echo $moto['moto_color'] ?>
+                            Cân nặng : <?php echo $moto['moto_weight'] ?>
+                            Kích thước : <?php echo $moto['moto_size'] ?>
+                        </div>
+                    </div>
+                    <?php next($data) ?>
+                <?php endfor; ?>
+                <?php prev($data) ?>
             </div>
-
-            <div class="row">
-            </div>
+            <?php }while(next($data) != NULL) ?>
+            
+            
+            <?php // do{
+//                var_dump(current($data));
+//            }while(next($data) != NULL)
+                ?>
+            
         </div>
     </body>
 
