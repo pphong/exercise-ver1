@@ -5,6 +5,9 @@
         ],
         "moto_pdo": [
             "Public/model/"
+        ],
+        "Email":[
+            "src/"
         ]
         
     },
