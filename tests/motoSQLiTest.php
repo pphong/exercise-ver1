@@ -21,22 +21,24 @@ class motoSQLiTest extends TestCase {
         $obj = new moto_sqli();
         $data = $obj->getDataMotos();
         $this->assertTrue(
-            !empty($data)
+//            !empty($data)
+                $data
         );
         
     }
     
     public function testGetDataMotoWithInput(): void {
         $obj = new moto_sqli();
-        $data = $obj->getDataMotos('19');
+        $data = $obj->getDataMotos('-1');
         $this->assertTrue(
-            !empty($data)
+//            !empty($data)
+                $data
         );
     }
     
     public function testPostEdit(): void {
         $data = [
-            'moto_id' => 19,
+            'moto_id' => 20,
             'moto_name' => 'abc',
             'moto_color' => 'abcool',
             'moto_weight' => 120,
@@ -46,7 +48,8 @@ class motoSQLiTest extends TestCase {
         $obj = new moto_sqli();
         $data = $obj->postEdit($data);
         $this->assertTrue(
-            !empty($data)
+//            !empty($data)
+                $data
         );
     }
     
@@ -61,7 +64,8 @@ class motoSQLiTest extends TestCase {
         $obj = new moto_sqli();
         $data = $obj->postAdd($data);
         $this->assertTrue(
-            !empty($data)
+//            !empty($data)
+                $data
         );
     }
 

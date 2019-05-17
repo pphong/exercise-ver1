@@ -3,7 +3,8 @@ require_once('config.php');
 Class pdo_db {
     public static $connection;
     public function __construct() {
-        self::$connection = new PDO("mysql:host=".DB_HOST.";dbname=".DB_NAME, DB_USER, DB_PASS);
+        self::$connection = new PDO(DSN, DB_USER, DB_PASS);
+        self::$connection->pdo_connect();
         self::$connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         self::$connection->exec("set names utf8");
     }
